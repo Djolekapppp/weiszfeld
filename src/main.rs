@@ -85,7 +85,7 @@ fn parse_dat(path: &str) -> Result<Vec<Point>, Box<dyn std::error::Error>> {
             reading = true;
             continue;
         }
-        if line.contains("param") {
+        if line.contains("param:") {
             skip_next = true;
             continue;
         }
@@ -195,10 +195,9 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let args = std::env::args();
     let config = Config::new(&args.collect::<Vec<String>>())?;
 
+    let start = Instant::now();
 
     let points = parse_dat(&config.input)?;
-
-    let start = Instant::now();
     let load_time = start.elapsed();
 
     if points.is_empty() {
@@ -214,9 +213,10 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     );
 
     let algorithm_time = algorithm_start.elapsed();
-    let total_time = start.elapsed();
 
     let objective = objective_function(&points, result.x, result.y);
+
+    let total_time = start.elapsed();
 
     println!();
     println!("========== Weber Problem ==========");
