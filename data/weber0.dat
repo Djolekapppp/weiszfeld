@@ -1,0 +1,12 @@
+# Primer 2.5 iz knjige MO
+data;
+
+param: 
+	I:   a   b   w :=
+    M1   3   7  80
+    M2   8   1  30
+    M3  10   5  25
+    M4  12   1  40
+;
+
+end;

@@ -1,0 +1,12 @@
+#Zadatak 2.4 iz knjige
+data;
+
+param:
+    I: a b w :=
+    A1 4 4 4
+    A2 3 1 1
+    A3 6 4 2
+    A4 6 2 4
+;
+
+end;
