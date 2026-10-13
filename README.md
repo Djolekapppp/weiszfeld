@@ -4,9 +4,11 @@ A Rust implementation of Weiszfeld's algorithm for solving the weighted Weber pr
 
 The program finds a location $(x,y)$ that minimizes the weighted sum of Euclidean distances to a set of points. It supports configurable convergence tolerance and a maximum number of iterations, and reports the resulting location, objective function value, iteration count, and execution time.
 
+Two similar implementations in AMPL are also given.
+
 ## The Weber Problem
 
-Given $n$ points with coordinates $(x_i,y_i)$ and positive weights $w_i$, the goal is to find a point $(x^*,y^*)$ minimizing
+Given $n$ points with coordinates $(x_i,y_i)$ and positive weights $w_i$, the goal is to find a point $(x^\*,y^\*)$ minimizing
 
 $$
 F(x,y)=\sum_{i=1}^{n}w_i\sqrt{(x-x_i)^2+(y-y_i)^2}.
