@@ -1,0 +1,55 @@
+reset;
+
+set I;
+
+param a{I};
+param b{I};
+param w{I};
+
+data "data/weber.dat";
+
+
+for {r in I} {
+    if (sqrt((sum{i in I : i != r}
+            w[i]*(a[r]-a[i])/
+            sqrt((a[r]-a[i])^2 + (b[r]-b[i])^2))^2
+        +
+        (sum{i in I : i != r}
+            w[i]*(b[r]-b[i])/
+            sqrt((a[r]-a[i])^2 + (b[r]-b[i])^2))^2)
+        <= w[r])
+        then{
+            printf "Tacka %d (%d, %d) je optimalna\n", r, a[r], b[r];
+            exit 0;
+            }
+}
+param eps := 0.002;
+
+param x;
+param y;
+param pom_x;
+param pom_y;
+
+let x := (sum{i in I} w[i]*a[i])/(sum{i in I} w[i]);
+let y := (sum{i in I} w[i]*b[i])/(sum{i in I} w[i]);
+
+repeat {
+    let pom_x := (sum{i in I}
+            ((w[i]*a[i])/sqrt((a[i]-x)^2 + (b[i]-y)^2)))/
+                 (sum{i in I}
+             (w[i]/sqrt((a[i]-x)^2 + (b[i]-y)^2)));
+    let pom_y := (sum{i in I}
+            ((w[i]*b[i])/sqrt((a[i]-x)^2 + (b[i]-y)^2)))/
+                 (sum{i in I}
+             (w[i]/sqrt((a[i]-x)^2 + (b[i]-y)^2)));
+    if (max(abs(pom_x-x), abs(pom_y-y))) < eps
+        then {
+            let x := pom_x;
+            let y := pom_y;
+            break;
+        }
+    let x := pom_x;
+    let y := pom_y;
+}
+
+printf "Tacka X (%f, %f) se usvaja za izgradnju skole!\n", x, y;
